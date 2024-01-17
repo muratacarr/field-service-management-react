@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const [login, setlogin] = useState(false);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-light" data-bs-theme="light">
@@ -138,41 +140,50 @@ const Navbar = () => {
               </li>
             </ul>
             <ul className="navbar-nav ms-auto">
-              {/* Kullanıcı Dropdown */}
-              <li className="nav-item dropdown">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? "nav-link dropdown-toggle"
-                      : "nav-link dropdown-toggle"
-                  }
-                  data-bs-toggle="dropdown"
-                  href="#"
-                  role="button"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Ad Soyad
-                </NavLink>
-                <div className="dropdown-menu dropdown-menu-end">
+              {login ? (
+                // Kullanıcı Dropdown
+                <li className="nav-item dropdown">
                   <NavLink
-                    to="/profile"
                     className={({ isActive }) =>
-                      isActive ? "dropdown-item active" : "dropdown-item"
+                      isActive
+                        ? "nav-link dropdown-toggle"
+                        : "nav-link dropdown-toggle"
                     }
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="false"
                   >
-                    Profilim
+                    Ad Soyad
                   </NavLink>
-                  <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                      isActive ? "dropdown-item active" : "dropdown-item"
-                    }
-                  >
-                    Çıkış Yap
-                  </NavLink>
-                </div>
-              </li>
+                  <div className="dropdown-menu dropdown-menu-end">
+                    <NavLink
+                      to="/profile"
+                      className={({ isActive }) =>
+                        isActive ? "dropdown-item active" : "dropdown-item"
+                      }
+                    >
+                      Profilim
+                    </NavLink>
+                    <NavLink
+                      to="/"
+                      className={({ isActive }) =>
+                        isActive ? "dropdown-item active" : "dropdown-item"
+                      }
+                    >
+                      Çıkış Yap
+                    </NavLink>
+                  </div>
+                </li>
+              ) : (
+                //  Giriş Yap
+                <li class="nav-item">
+                  <Link to="/login" className="nav-link">
+                    Giriş Yap
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>

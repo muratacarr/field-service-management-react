@@ -13,6 +13,7 @@ import Talepler from "../pages/bayi/talepler";
 import Isler from "../pages/bayi/isler";
 import Teknisyenler from "../pages/bayi/teknisyenler";
 import Profile from "../pages/profile";
+import Register from "../pages/register";
 
 const routes = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ const routes = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 

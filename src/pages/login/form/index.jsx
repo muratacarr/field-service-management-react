@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   return (
@@ -39,10 +40,18 @@ const LoginForm = () => {
         </div> */}
       </div>
 
-      <button type="button" className="btn btn-primary btn-block mb-2">
-        Giriş Yap
-      </button>
-
+      <div className="d-flex justify-content-between">
+        <button type="button" className="btn btn-primary btn-block mb-2">
+          Giriş Yap
+        </button>
+        <Link
+          to="/register"
+          type="button"
+          className="btn btn-success btn-block mb-2"
+        >
+          Kayıt Ol
+        </Link>
+      </div>
       {/* <div className="text-center">
         <p>
           <a href="#!">Kayıt Ol</a>
