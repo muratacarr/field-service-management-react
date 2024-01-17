@@ -1,7 +1,12 @@
 import React from "react";
+import ServiceRequestCard from "../../../components/cards";
 
 const Isler = () => {
-  return <div>Isler</div>;
+  return (
+    <div className="container">
+      <ServiceRequestCard />
+    </div>
+  );
 };
 
 export default Isler;
