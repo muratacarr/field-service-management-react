@@ -4,7 +4,6 @@ import Musteri from "../pages/musteri";
 import Teknisyen from "../pages/teknisyen";
 import Bayi from "../pages/bayi";
 import Login from "../pages/login";
-import TeknikServisTalebi from "../pages/musteri/servis-talebi-olustur";
 import ServisTalebiOlustur from "../pages/musteri/servis-talebi-olustur";
 import Taleplerim from "../pages/musteri/taleplerim";
 import Islerim from "../pages/teknisyen/islerim";
@@ -14,6 +13,7 @@ import Isler from "../pages/bayi/isler";
 import Teknisyenler from "../pages/bayi/teknisyenler";
 import Profile from "../pages/profile";
 import Register from "../pages/register";
+import NotFound from "../pages/404";
 
 const routes = createBrowserRouter([
   {
@@ -79,6 +79,10 @@ const routes = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 

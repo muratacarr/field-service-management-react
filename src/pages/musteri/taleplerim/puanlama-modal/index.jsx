@@ -1,4 +1,16 @@
+import { useState } from "react";
+import { Rating } from "react-simple-star-rating";
+
 const PuanlamaModal = () => {
+  const [ratingValue, setRatingValue] = useState(0);
+
+  const handleRating = (rate) => {
+    setRatingValue(rate);
+  };
+  const handleReset = () => {
+    // Set the initial value
+    setRating(0);
+  };
   return (
     <div
       class="modal fade"
@@ -19,7 +31,12 @@ const PuanlamaModal = () => {
             ></button>
           </div>
           <div class="modal-body">
-            <div class="form-group">
+            <Rating
+              onClick={handleRating}
+              disableFillHover
+              initialValue={ratingValue}
+            />
+            {/* <div class="form-group">
               <select class="form-select" id="exampleSelect1">
                 <option>1</option>
                 <option>2</option>
@@ -27,7 +44,7 @@ const PuanlamaModal = () => {
                 <option>4</option>
                 <option>5</option>
               </select>
-            </div>
+            </div> */}
           </div>
           <div class="modal-footer">
             <button
