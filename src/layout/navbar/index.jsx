@@ -128,14 +128,14 @@ const Navbar = () => {
                   >
                     İşlerim
                   </NavLink>
-                  <NavLink
+                  {/* <NavLink
                     to="/teknisyen/fatura-olustur"
                     className={({ isActive }) =>
                       isActive ? "dropdown-item active" : "dropdown-item"
                     }
                   >
                     Fatura Oluştur
-                  </NavLink>
+                  </NavLink> */}
                 </div>
               </li>
             </ul>

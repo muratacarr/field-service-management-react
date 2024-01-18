@@ -1,7 +1,11 @@
 import React from "react";
 import "./card.css";
+import PuanlamaModal from "../../pages/musteri/taleplerim/puanlama-modal";
+import { useLocation } from "react-router-dom";
 
 const ServiceRequestCard = () => {
+  const location = useLocation();
+  const { hash, pathname, search } = location;
   return (
     <div className="col-md-4 card-container" style={{ cursor: "pointer" }}>
       <div className="card p-3 mb-2">
@@ -33,7 +37,22 @@ const ServiceRequestCard = () => {
             </div>
           </div>
         </div>
+        <div className="d-flex justify-content-end  mt-3">
+          {pathname == "/musteri/taleplerim" ? (
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal1"
+            >
+              Puanla
+            </button>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
+      <PuanlamaModal />
     </div>
   );
 };
