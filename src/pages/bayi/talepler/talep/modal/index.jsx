@@ -1,12 +1,41 @@
 import React from "react";
 import { Typeahead } from "react-bootstrap-typeahead";
+import { toast } from "react-toastify";
 
-const Modal = () => {
+const Modal = ({ item, index }) => {
+  const handleApprove = async (e) => {
+    e.preventDefault();
+    let regobj = {
+      serviceRequestId: item.id,
+      assignmentDate: "2024-01-23T05:21:53.984Z",
+    };
+    if (true) {
+      //Buraya validation yapacağımız için şuanlık true geçtik
+      await fetch(
+        "http://localhost:5155/api/JobAssignments/CreateJobAssignment",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(regobj),
+        }
+      )
+        .then((res) => {
+          res.json().then((response) => {
+            toast.success("Talep Oluşturuldu.");
+          });
+        })
+        .catch((err) => {
+          console.log(response.data);
+          toast.error("Hata :" + err.message);
+        });
+    }
+  };
+
   return (
     <div
       className="modal fade"
-      id="exampleModal"
-      tabindex="-1"
+      id={"exampleModal" + index}
+      tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
@@ -14,7 +43,7 @@ const Modal = () => {
         <div className="modal-content">
           <div className="modal-header">
             <h1 className="modal-title fs-5" id="exampleModalLabel">
-              Talep Id : 1
+              Talep Id : {item.id}
             </h1>
             <button
               type="button"
@@ -26,57 +55,58 @@ const Modal = () => {
           <div className="modal-body">
             <form>
               <div className="form-outline mb-4">
-                <label className="form-label" for="form2Example1">
+                <label className="form-label" htmlFor="form2Example1">
                   Müşteri
                 </label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
-                  placeholder=""
+                  placeholder={item.customerId}
                   style={{ backgroundColor: "white" }}
                   disabled
                 />
               </div>
               <div className="form-outline mb-4">
-                <label className="form-label" for="form2Example1">
+                <label className="form-label" htmlFor="form2Example1">
                   Ürün
                 </label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
-                  placeholder=""
+                  placeholder={item.productId}
                   style={{ backgroundColor: "white" }}
                   disabled
                 />
               </div>
               <div className="form-outline mb-4">
-                <label className="form-label" for="form2Example1">
+                <label className="form-label" htmlFor="form2Example1">
                   Tarih
                 </label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
-                  placeholder=""
+                  placeholder={item.requestDate}
                   style={{ backgroundColor: "white" }}
                   disabled
                 />
               </div>
               <div className="row mb-4">
-                <div class="form-group">
-                  <label for="exampleTextarea" class="form-label mt-2">
+                <div className="form-group">
+                  <label htmlFor="exampleTextarea" className="form-label mt-2">
                     Açıklama
                   </label>
                   <textarea
-                    class="form-control"
+                    className="form-control"
                     id="exampleTextarea"
                     rows="3"
                     style={{ resize: "none" }}
+                    value={item.issueDescription}
                     readOnly
                   ></textarea>
                 </div>
@@ -97,7 +127,11 @@ const Modal = () => {
             >
               Reddet
             </button>
-            <button type="button" className="btn btn-success">
+            <button
+              onClick={handleApprove}
+              type="button"
+              className="btn btn-success"
+            >
               Onayla
             </button>
           </div>

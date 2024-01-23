@@ -1,6 +1,6 @@
 import React from "react";
 
-const Teknisyen = () => {
+const Teknisyen = ({ item }) => {
   return (
     <div className="col" style={{ width: "16%" }}>
       <div class="card">
@@ -13,9 +13,9 @@ const Teknisyen = () => {
               style={{ width: "125px" }}
             />
           </p>
-          <h4 class="card-title">Ad Soyad</h4>
+          <h6 class="card-title">{item.name + " " + item.surname}</h6>
           <p class="card-text">
-            <strong>Bölge :</strong> Buca
+            <strong>Bölge :</strong> {item.zoneId}
           </p>
         </div>
       </div>

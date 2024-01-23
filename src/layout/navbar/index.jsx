@@ -178,7 +178,7 @@ const Navbar = () => {
                 </li>
               ) : (
                 //  Giriş Yap
-                <li class="nav-item">
+                <li className="nav-item">
                   <Link to="/login" className="nav-link">
                     Giriş Yap
                   </Link>

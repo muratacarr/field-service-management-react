@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Talep from "./talep";
 
 const Talepler = () => {
+  const [issue, setIssue] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5155/api/ServiceRequests/GetOpenServiceRequest", {
+      method: "GET",
+      headers: { "content-type": "application/json" },
+    })
+      .then((res) => {
+        res.json().then((response) => {
+          setIssue(response.data);
+        });
+      })
+      .catch((err) => {
+        console.log(response.data);
+        toast.error("Hata :" + err.message);
+      });
+  }, []);
+
   return (
     <div className="container">
       <table className="table table-striped table-hover">
@@ -15,8 +33,13 @@ const Talepler = () => {
           </tr>
         </thead>
         <tbody>
-          <Talep />
-          <Talep />
+          {issue.length != 0 ? (
+            issue.map((item, index) => {
+              return <Talep key={index} index={index} item={item} />;
+            })
+          ) : (
+            <tr>{"Veri yok"}</tr>
+          )}
         </tbody>
       </table>
     </div>

@@ -13,31 +13,31 @@ const PuanlamaModal = () => {
   };
   return (
     <div
-      class="modal fade"
+      className="modal fade"
       id="exampleModal1"
-      tabindex="-1"
+      tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Puanla</h5>
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Puanla</h5>
             <button
               type="button"
-              class="btn-close"
+              className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
             <Rating
               onClick={handleRating}
               disableFillHover
               initialValue={ratingValue}
             />
-            {/* <div class="form-group">
-              <select class="form-select" id="exampleSelect1">
+            {/* <div className="form-group">
+              <select className="form-select" id="exampleSelect1">
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -46,15 +46,15 @@ const PuanlamaModal = () => {
               </select>
             </div> */}
           </div>
-          <div class="modal-footer">
+          <div className="modal-footer">
             <button
               type="button"
-              class="btn btn-secondary"
+              className="btn btn-secondary"
               data-bs-dismiss="modal"
             >
               Kapat
             </button>
-            <button type="button" class="btn btn-primary">
+            <button type="button" className="btn btn-primary">
               Kaydet
             </button>
           </div>

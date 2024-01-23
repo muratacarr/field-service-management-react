@@ -1,26 +1,26 @@
 import React from "react";
 import Modal from "./modal";
 
-const Talep = () => {
+const Talep = ({ item, index }) => {
   return (
     <>
       <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <th scope="row">{item.id}</th>
+        <td>{item.customerId}</td>
+        <td>{item.productId}</td>
+        <td>{item.requestDate}</td>
         <td>
           <button
             type="button"
             className="btn btn-primary"
             data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
+            data-bs-target={"#exampleModal" + index}
           >
             Görüntüle
           </button>
         </td>
       </tr>
-      <Modal />
+      <Modal item={item} index={index} />
     </>
   );
 };

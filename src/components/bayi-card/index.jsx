@@ -1,13 +1,12 @@
 import React from "react";
-import "./card.css";
-import PuanlamaModal from "../../pages/musteri/taleplerim/puanlama-modal";
+import "../cards/card.css";
 import { useLocation } from "react-router-dom";
 
-const ServiceRequestCard = ({ serviceRequest }) => {
+const BayiJobCard = () => {
   const location = useLocation();
   const { hash, pathname, search } = location;
   return (
-    <>
+    <div className="col-4">
       <div
         className="card p-3 mb-2 card-container"
         style={{ cursor: "pointer" }}
@@ -26,11 +25,7 @@ const ServiceRequestCard = ({ serviceRequest }) => {
           </div>
         </div>
         <div className="mt-5">
-          <h5 className="heading">
-            {serviceRequest.issueDescription.length > 30
-              ? serviceRequest.issueDescription.substring(0, 30) + "..."
-              : serviceRequest.issueDescription}
-          </h5>
+          <h5 className="heading">Bayi Card</h5>
           <div className="mt-5">
             <div className="progress">
               <div
@@ -59,9 +54,8 @@ const ServiceRequestCard = ({ serviceRequest }) => {
           )}
         </div>
       </div>
-      <PuanlamaModal />
-    </>
+    </div>
   );
 };
 
-export default ServiceRequestCard;
+export default BayiJobCard;

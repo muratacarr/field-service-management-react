@@ -12,6 +12,7 @@ const LoginForm = () => {
     e.preventDefault();
     let regobj = { email, password };
     if (true) {
+      //Buraya validationyapacağımız için şuanlık true geçtik
       await fetch("http://localhost:5155/api/Auth/CreateToken", {
         method: "POST",
         headers: { "content-type": "application/json" },
