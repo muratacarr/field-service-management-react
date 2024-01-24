@@ -6,8 +6,8 @@ const Talep = ({ item, index, setRerender, reRender }) => {
     <>
       <tr>
         <th scope="row">{item.id}</th>
-        <td>{item.customerId}</td>
-        <td>{item.productId}</td>
+        <td>{item.appUser.name + " " + item.appUser.surname}</td>
+        <td>{item.product.productName}</td>
         <td>{item.requestDate}</td>
         <td>
           <button

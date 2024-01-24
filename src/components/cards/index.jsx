@@ -18,25 +18,38 @@ const ServiceRequestCard = ({ serviceRequest }) => {
               <i className="bx bxl-mailchimp"></i>
             </div>
             <div className="ms-2 c-details">
-              <h6 className="mb-0">Murat ACAR</h6> <span>1 days ago</span>
+              <h6 className="mb-0">
+                {serviceRequest &&
+                  serviceRequest.appUser.name +
+                    " " +
+                    serviceRequest.appUser.surname}
+                {/* deneme */}
+              </h6>
+              <span>1 days ago</span>
             </div>
           </div>
           <div className="">
-            <span className="badge bg-warning">Devam ediyor</span>
+            <span className="badge bg-warning">
+              {serviceRequest && serviceRequest.status.name}
+              {/* bekliyor */}
+            </span>
           </div>
         </div>
         <div className="mt-5">
-          <h5 className="heading">
-            {serviceRequest.issueDescription.length > 30
-              ? serviceRequest.issueDescription.substring(0, 30) + "..."
-              : serviceRequest.issueDescription}
-          </h5>
+          <h6 className="heading">
+            {serviceRequest && serviceRequest.issueDescription}
+            {/* açıklama */}
+          </h6>
           <div className="mt-5">
             <div className="progress">
               <div
                 className="progress-bar"
                 role="progressbar"
-                style={{ width: "50%" }}
+                style={
+                  serviceRequest
+                    ? { width: serviceRequest.status.percent + "%" }
+                    : { width: "20%" }
+                }
                 aria-valuenow="50"
                 aria-valuemin="0"
                 aria-valuemax="100"
@@ -45,15 +58,19 @@ const ServiceRequestCard = ({ serviceRequest }) => {
           </div>
         </div>
         <div className="d-flex justify-content-end  mt-3">
-          {pathname == "/musteri/taleplerim" ? (
-            <button
-              type="button"
-              className="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal1"
-            >
-              Puanla
-            </button>
+          {serviceRequest ? (
+            serviceRequest.status.percent === 90 ? (
+              <button
+                type="button"
+                className="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal1"
+              >
+                Puanla
+              </button>
+            ) : (
+              <></>
+            )
           ) : (
             <></>
           )}

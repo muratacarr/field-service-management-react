@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Talep from "./talep";
+import Spinner from "../../../components/spinner";
 
 const Talepler = () => {
   const [issue, setIssue] = useState([]);
   const [reRender, setRerender] = useState(false);
+  const [spinner, setSpinner] = useState(false); //
 
   useEffect(() => {
+    setSpinner(true); //
     fetch("http://localhost:5155/api/ServiceRequests/GetOpenServiceRequest", {
       method: "GET",
       headers: { "content-type": "application/json" },
     })
       .then((res) => {
         res.json().then((response) => {
+          console.log(response.data);
           setIssue(response.data);
+          setSpinner(false); //
         });
       })
       .catch((err) => {
@@ -23,7 +28,7 @@ const Talepler = () => {
 
   return (
     <div className="container">
-      <table className="table table-striped table-hover">
+      <table className="table table-striped table-hover mt-3">
         <thead>
           <tr>
             <th scope="col">TALEP ID</th>
@@ -34,7 +39,9 @@ const Talepler = () => {
           </tr>
         </thead>
         <tbody>
-          {issue.length != 0 ? (
+          {spinner ? (
+            <Spinner />
+          ) : issue ? (
             issue.map((item, index) => {
               return (
                 <Talep
@@ -47,7 +54,7 @@ const Talepler = () => {
               );
             })
           ) : (
-            <tr>{"Veri yok"}</tr>
+            <tr>Talep Yok</tr>
           )}
         </tbody>
       </table>

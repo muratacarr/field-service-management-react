@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import TechnicianJobCard from "../../../components/technician-job-card";
+import Spinner from "../../../components/spinner";
 
 const Islerim = () => {
   const [jobs, setJobs] = useState([]);
+  const [spinner, setSpinner] = useState(false); //
   useEffect(() => {
+    setSpinner(true); //
     fetch(
       "http://localhost:5155/api/JobAssignments/GetJobsByTechnicianId?technicianId=" +
-        "3",
+        "5",
       {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -14,8 +17,8 @@ const Islerim = () => {
     )
       .then((res) => {
         res.json().then((response) => {
-          console.log(response.data);
           setJobs(response.data);
+          setSpinner(false); //
         });
       })
       .catch((err) => {
@@ -26,10 +29,13 @@ const Islerim = () => {
   return (
     <div className="container mt-4">
       <div className="row">
-        {jobs &&
+        {spinner ? (
+          <Spinner />
+        ) : (
           jobs.map((item, index) => {
             return <TechnicianJobCard key={index} item={item} />;
-          })}
+          })
+        )}
       </div>
     </div>
   );

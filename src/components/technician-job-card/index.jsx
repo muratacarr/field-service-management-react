@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./technician-job-card.css";
 import { Link } from "react-router-dom";
 
 const TechnicianJobCard = ({ item }) => {
+  console.log(item);
+  let [statuses, setStatuses] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5155/api/Statuses/GetStatuses", {
+      method: "GET",
+      headers: { "content-type": "application/json" },
+    })
+      .then((res) => {
+        res.json().then((response) => {
+          console.log(response.data);
+          setStatuses(response.data);
+        });
+      })
+      .catch((err) => {
+        console.log(response.data);
+        toast.error("Hata :" + err.message);
+      });
+  }, []);
+
   return (
     <div className="col-4 ">
       <div
@@ -15,21 +35,32 @@ const TechnicianJobCard = ({ item }) => {
               <i className="bx bxl-mailchimp"></i>
             </div>
             <div className="ms-2 c-details">
-              <h6 className="mb-0">Murat ACAR</h6> <span>1 days ago</span>
+              <h6 className="mb-0">
+                {item.serviceRequest.appUser.name +
+                  " " +
+                  item.serviceRequest.appUser.surname}
+              </h6>{" "}
+              <span>1 days ago</span>
             </div>
           </div>
           <div className="">
-            <span className="badge bg-warning">Devam ediyor</span>
+            <span className="badge bg-warning">
+              {item.serviceRequest.status.name}
+            </span>
           </div>
         </div>
         <div className="mt-5">
-          <h3 className="heading">Armatür kartuşu sorunu</h3>
+          <h3 className="heading">{item.serviceRequest.issueDescription}</h3>
           <div className="mt-5">
             <div className="progress">
               <div
                 className="progress-bar"
                 role="progressbar"
-                style={{ width: "50%" }}
+                style={
+                  item
+                    ? { width: item.serviceRequest.status.percent + "%" }
+                    : { width: "20%" }
+                }
                 aria-valuenow="50"
                 aria-valuemin="0"
                 aria-valuemax="100"
@@ -38,35 +69,27 @@ const TechnicianJobCard = ({ item }) => {
           </div>
         </div>
         <div className="d-flex justify-content-between mt-3">
-          <div
-            className="btn-group"
-            role="group"
-            aria-label="Button group with nested dropdown"
-          >
-            <button type="button" className="btn btn-info">
-              Durum
-            </button>
-            <div className="btn-group" role="group">
-              <button
-                id="btnGroupDrop3"
-                type="button"
-                className="btn btn-info dropdown-toggle"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              ></button>
-              <div className="dropdown-menu" aria-labelledby="btnGroupDrop3">
-                <a className="dropdown-item" href="#">
-                  İş üzerine alındı
-                </a>
-                <a className="dropdown-item" href="#">
-                  Adrese geliyor
-                </a>
-                <a className="dropdown-item" href="#">
-                  Adreste çalışma yapılıyor
-                </a>
-              </div>
-            </div>
+          <div className="form-group">
+            <select className="form-select" id="exampleSelect1">
+              {statuses &&
+                statuses.map((status, index) => {
+                  if (status.showTechnician) {
+                    if (item.serviceRequest.statusId == status.id) {
+                      return (
+                        <option selected value={status.id} key={index}>
+                          {status.name}
+                        </option>
+                      );
+                    } else {
+                      return (
+                        <option value={status.id} key={index}>
+                          {status.name}
+                        </option>
+                      );
+                    }
+                  }
+                })}
+            </select>
           </div>
           <Link
             type="button"

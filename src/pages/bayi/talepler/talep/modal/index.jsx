@@ -85,7 +85,7 @@ const Modal = ({ item, index, setRerender, reRender }) => {
                   className="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
-                  placeholder={item.customerId}
+                  placeholder={item.appUser.name + " " + item.appUser.surname}
                   style={{ backgroundColor: "white" }}
                   disabled
                 />
@@ -99,7 +99,7 @@ const Modal = ({ item, index, setRerender, reRender }) => {
                   className="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
-                  placeholder={item.productId}
+                  placeholder={item.product.productName}
                   style={{ backgroundColor: "white" }}
                   disabled
                 />

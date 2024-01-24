@@ -27,7 +27,7 @@ const ServisTalebiForm = () => {
 
   const handleSelect = (s) => {
     setSelected(s);
-    setSelectedId(s[0].id);
+    if (s[0] != null) setSelectedId(s[0].id);
   };
 
   const handlesubmit = async (e) => {
@@ -36,7 +36,6 @@ const ServisTalebiForm = () => {
       customerId: 1,
       productId: selectedId,
       requestDate: "2024-01-23T05:21:53.984Z",
-      zoneId: 2,
       issueDescription,
       statusId: 1,
     };
