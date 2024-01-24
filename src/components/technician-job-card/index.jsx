@@ -2,10 +2,13 @@ import React from "react";
 import "./technician-job-card.css";
 import { Link } from "react-router-dom";
 
-const TechnicianJobCard = () => {
+const TechnicianJobCard = ({ item }) => {
   return (
-    <div className="col-md-4 card-container" style={{ cursor: "pointer" }}>
-      <div className="card p-3 mb-2">
+    <div className="col-4 ">
+      <div
+        className="card card-container p-3 mb-2"
+        style={{ cursor: "pointer" }}
+      >
         <div className="d-flex justify-content-between">
           <div className="d-flex flex-row align-items-center">
             <div className="icon">
@@ -16,7 +19,7 @@ const TechnicianJobCard = () => {
             </div>
           </div>
           <div className="">
-            <span class="badge bg-warning">Devam ediyor</span>
+            <span className="badge bg-warning">Devam ediyor</span>
           </div>
         </div>
         <div className="mt-5">
@@ -36,30 +39,30 @@ const TechnicianJobCard = () => {
         </div>
         <div className="d-flex justify-content-between mt-3">
           <div
-            class="btn-group"
+            className="btn-group"
             role="group"
             aria-label="Button group with nested dropdown"
           >
-            <button type="button" class="btn btn-info">
+            <button type="button" className="btn btn-info">
               Durum
             </button>
-            <div class="btn-group" role="group">
+            <div className="btn-group" role="group">
               <button
                 id="btnGroupDrop3"
                 type="button"
-                class="btn btn-info dropdown-toggle"
+                className="btn btn-info dropdown-toggle"
                 data-bs-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
               ></button>
-              <div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
-                <a class="dropdown-item" href="#">
+              <div className="dropdown-menu" aria-labelledby="btnGroupDrop3">
+                <a className="dropdown-item" href="#">
                   İş üzerine alındı
                 </a>
-                <a class="dropdown-item" href="#">
+                <a className="dropdown-item" href="#">
                   Adrese geliyor
                 </a>
-                <a class="dropdown-item" href="#">
+                <a className="dropdown-item" href="#">
                   Adreste çalışma yapılıyor
                 </a>
               </div>
@@ -68,7 +71,7 @@ const TechnicianJobCard = () => {
           <Link
             type="button"
             to="/teknisyen/fatura-olustur"
-            class="btn btn-outline-warning"
+            className="btn btn-outline-warning"
           >
             Fatura Oluştur
           </Link>

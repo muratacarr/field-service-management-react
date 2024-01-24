@@ -1,9 +1,12 @@
-import React from "react";
-import { Typeahead } from "react-bootstrap-typeahead";
+import React, { useRef } from "react";
 import { toast } from "react-toastify";
 
-const Modal = ({ item, index }) => {
+const Modal = ({ item, index, setRerender, reRender }) => {
+  const inputRef = useRef(null);
+
   const handleApprove = async (e) => {
+    inputRef.current.click();
+
     e.preventDefault();
     let regobj = {
       serviceRequestId: item.id,
@@ -20,8 +23,26 @@ const Modal = ({ item, index }) => {
         }
       )
         .then((res) => {
-          res.json().then((response) => {
-            toast.success("Talep Oluşturuldu.");
+          res.json().then(async (response) => {
+            //ServiceRequest i onaylanınca status değiştirilmesi
+            await fetch(
+              "http://localhost:5155/api/ServiceRequests/UpdateStatusOfServiceRequest",
+              {
+                method: "PUT",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify({ id: item.id, statusId: 2 }),
+              }
+            )
+              .then((res) => {
+                res.json().then((response) => {
+                  setRerender(!reRender);
+                  toast.success("Talep Onaylandı.");
+                });
+              })
+              .catch((err) => {
+                console.log(response.data);
+                toast.error("Hata :" + err.message);
+              });
           });
         })
         .catch((err) => {
@@ -46,6 +67,7 @@ const Modal = ({ item, index }) => {
               Talep Id : {item.id}
             </h1>
             <button
+              ref={inputRef}
               type="button"
               className="btn-close"
               data-bs-dismiss="modal"

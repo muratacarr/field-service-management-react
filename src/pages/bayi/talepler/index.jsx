@@ -3,6 +3,7 @@ import Talep from "./talep";
 
 const Talepler = () => {
   const [issue, setIssue] = useState([]);
+  const [reRender, setRerender] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:5155/api/ServiceRequests/GetOpenServiceRequest", {
@@ -18,7 +19,7 @@ const Talepler = () => {
         console.log(response.data);
         toast.error("Hata :" + err.message);
       });
-  }, []);
+  }, [reRender]);
 
   return (
     <div className="container">
@@ -35,7 +36,15 @@ const Talepler = () => {
         <tbody>
           {issue.length != 0 ? (
             issue.map((item, index) => {
-              return <Talep key={index} index={index} item={item} />;
+              return (
+                <Talep
+                  key={index}
+                  index={index}
+                  item={item}
+                  setRerender={setRerender}
+                  reRender={reRender}
+                />
+              );
             })
           ) : (
             <tr>{"Veri yok"}</tr>

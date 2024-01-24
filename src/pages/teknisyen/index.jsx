@@ -4,7 +4,6 @@ import { Outlet } from "react-router-dom";
 function Teknisyen() {
   return (
     <div>
-      Teknisyen
       <Outlet />
     </div>
   );

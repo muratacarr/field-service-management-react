@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "./modal";
 
-const Talep = ({ item, index }) => {
+const Talep = ({ item, index, setRerender, reRender }) => {
   return (
     <>
       <tr>
@@ -20,7 +20,12 @@ const Talep = ({ item, index }) => {
           </button>
         </td>
       </tr>
-      <Modal item={item} index={index} />
+      <Modal
+        item={item}
+        index={index}
+        setRerender={setRerender}
+        reRender={reRender}
+      />
     </>
   );
 };
