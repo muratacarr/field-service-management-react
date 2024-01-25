@@ -26,7 +26,14 @@ const BayiJobCard = ({ item }) => {
             </div>
           </div>
           <div className="">
-            <span className="badge bg-warning">
+            <span
+              className="badge"
+              style={
+                item && {
+                  backgroundColor: item.serviceRequest.status.color,
+                }
+              }
+            >
               {item.serviceRequest.status.name}
             </span>
           </div>

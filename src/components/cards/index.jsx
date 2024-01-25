@@ -4,6 +4,7 @@ import PuanlamaModal from "../../pages/musteri/taleplerim/puanlama-modal";
 import { useLocation } from "react-router-dom";
 
 const ServiceRequestCard = ({ serviceRequest }) => {
+  console.log(serviceRequest);
   const location = useLocation();
   const { hash, pathname, search } = location;
   return (
@@ -29,7 +30,14 @@ const ServiceRequestCard = ({ serviceRequest }) => {
             </div>
           </div>
           <div className="">
-            <span className="badge bg-warning">
+            <span
+              className="badge"
+              style={
+                serviceRequest && {
+                  backgroundColor: serviceRequest.status.color,
+                }
+              }
+            >
               {serviceRequest && serviceRequest.status.name}
               {/* bekliyor */}
             </span>

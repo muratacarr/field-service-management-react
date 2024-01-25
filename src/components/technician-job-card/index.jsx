@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./technician-job-card.css";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const TechnicianJobCard = ({ item }) => {
-  console.log(item);
   let [statuses, setStatuses] = useState([]);
+  const [selectedValue, setSelectedValue] = useState(
+    item.serviceRequest.status.id
+  );
 
   useEffect(() => {
     fetch("http://localhost:5155/api/Statuses/GetStatuses", {
@@ -13,7 +16,6 @@ const TechnicianJobCard = ({ item }) => {
     })
       .then((res) => {
         res.json().then((response) => {
-          console.log(response.data);
           setStatuses(response.data);
         });
       })
@@ -22,6 +24,31 @@ const TechnicianJobCard = ({ item }) => {
         toast.error("Hata :" + err.message);
       });
   }, []);
+
+  const HandleSelectChange = async (event) => {
+    event.preventDefault();
+    console.log(item);
+    await fetch(
+      "http://localhost:5155/api/ServiceRequests/UpdateStatusOfServiceRequest",
+      {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          id: item.serviceRequest.id,
+          statusId: event.target.value,
+        }),
+      }
+    )
+      .then((res) => {
+        res.json().then((response) => {
+          toast.success("Durum değiştirildi.");
+        });
+      })
+      .catch((err) => {
+        console.log(response.data);
+        toast.error("Hata :" + err.message);
+      });
+  };
 
   return (
     <div className="col-4 ">
@@ -44,7 +71,14 @@ const TechnicianJobCard = ({ item }) => {
             </div>
           </div>
           <div className="">
-            <span className="badge bg-warning">
+            <span
+              className="badge"
+              style={
+                item && {
+                  backgroundColor: item.serviceRequest.status.color,
+                }
+              }
+            >
               {item.serviceRequest.status.name}
             </span>
           </div>
@@ -70,7 +104,11 @@ const TechnicianJobCard = ({ item }) => {
         </div>
         <div className="d-flex justify-content-between mt-3">
           <div className="form-group">
-            <select className="form-select" id="exampleSelect1">
+            <select
+              className="form-select"
+              id="exampleSelect1"
+              onChange={(e) => HandleSelectChange(e)}
+            >
               {statuses &&
                 statuses.map((status, index) => {
                   if (status.showTechnician) {

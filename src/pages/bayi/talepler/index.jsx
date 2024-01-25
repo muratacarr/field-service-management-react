@@ -15,7 +15,6 @@ const Talepler = () => {
     })
       .then((res) => {
         res.json().then((response) => {
-          console.log(response.data);
           setIssue(response.data);
           setSpinner(false); //
         });
