@@ -5,6 +5,7 @@ import Spinner from "../../../components/spinner";
 const Isler = () => {
   const [jobs, setJobs] = useState([]);
   const [spinner, setSpinner] = useState(false); //
+  const [rerender, setRerender] = useState(false);
 
   useEffect(() => {
     setSpinner(true); //
@@ -14,7 +15,6 @@ const Isler = () => {
     })
       .then((res) => {
         res.json().then((response) => {
-          console.log(response.data);
           setJobs(response.data);
           setSpinner(false); //
         });
@@ -23,7 +23,7 @@ const Isler = () => {
         console.log(response.data);
         toast.error("Hata :" + err.message);
       });
-  }, []);
+  }, [rerender]);
 
   return (
     <div className="container mt-4">
@@ -32,7 +32,14 @@ const Isler = () => {
           <Spinner />
         ) : (
           jobs.map((item, index) => {
-            return <BayiJobCard key={index} item={item} />;
+            return (
+              <BayiJobCard
+                key={index}
+                item={item}
+                setRerender={setRerender}
+                rerender={rerender}
+              />
+            );
           })
         )}
       </div>

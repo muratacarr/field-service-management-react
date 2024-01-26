@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./technician-job-card.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import StatusBadge from "../status-badge";
 
-const TechnicianJobCard = ({ item }) => {
+const TechnicianJobCard = ({ item, setRerender, rerender }) => {
   let [statuses, setStatuses] = useState([]);
-  const [selectedValue, setSelectedValue] = useState(
-    item.serviceRequest.status.id
-  );
 
   useEffect(() => {
     fetch("http://localhost:5155/api/Statuses/GetStatuses", {
@@ -42,6 +40,7 @@ const TechnicianJobCard = ({ item }) => {
       .then((res) => {
         res.json().then((response) => {
           toast.success("Durum değiştirildi.");
+          setRerender(!rerender);
         });
       })
       .catch((err) => {
@@ -71,7 +70,8 @@ const TechnicianJobCard = ({ item }) => {
             </div>
           </div>
           <div className="">
-            <span
+            <StatusBadge item={item} />
+            {/* <span
               className="badge"
               style={
                 item && {
@@ -80,7 +80,7 @@ const TechnicianJobCard = ({ item }) => {
               }
             >
               {item.serviceRequest.status.name}
-            </span>
+            </span> */}
           </div>
         </div>
         <div className="mt-5">

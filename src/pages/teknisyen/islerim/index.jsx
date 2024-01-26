@@ -5,6 +5,7 @@ import Spinner from "../../../components/spinner";
 const Islerim = () => {
   const [jobs, setJobs] = useState([]);
   const [spinner, setSpinner] = useState(false); //
+  const [rerender, setRerender] = useState(false);
   useEffect(() => {
     setSpinner(true); //
     fetch(
@@ -25,15 +26,23 @@ const Islerim = () => {
         console.log(response.data);
         toast.error("Hata :" + err.message);
       });
-  }, []);
+  }, [rerender]);
   return (
     <div className="container mt-4">
       <div className="row">
         {spinner ? (
           <Spinner />
         ) : (
+          jobs &&
           jobs.map((item, index) => {
-            return <TechnicianJobCard key={index} item={item} />;
+            return (
+              <TechnicianJobCard
+                key={index}
+                item={item}
+                setRerender={setRerender}
+                rerender={rerender}
+              />
+            );
           })
         )}
       </div>
